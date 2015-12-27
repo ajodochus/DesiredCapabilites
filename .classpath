@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
+	<classpathentry kind="src" path="hhhh"/>
 	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/libs/apache-mime4j-0.6.jar"/>
 	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/libs/bsh-1.3.0.jar"/>
 	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/libs/cglib-nodep-2.1_3.jar"/>
@@ -42,6 +40,9 @@
 	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/libs/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/selenium-java-2.37.0.jar"/>
 	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/selenium-java-2.37.0-srcs.jar"/>
-	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/mysql-connector-java-5.0.8/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry kind="lib" path="D:/Selenium/selenium-2.37.0/selenium-server-standalone-2.37.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

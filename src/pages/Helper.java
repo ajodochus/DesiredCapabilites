@@ -3,16 +3,32 @@ package pages;
 
 
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 public class Helper {
 	
-	public static DesiredCapabilities getDesiredCapabilities (String environment) {
+	static RemoteWebDriver	rwd = null;
+	static DesiredCapabilities capability = null;
+	
+	public static RemoteWebDriver driver(String browserPlattform) throws Exception{		
+		try {
+			rwd = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), getDesiredCapabilities(browserPlattform));
+		} catch (Exception e) {
+			System.out.println("konnte remoteWebdriver nicht aufbauen");
+		}
+		return rwd;
 		
-		DesiredCapabilities capability = null;
+		
+	}
+	
+	
+	public static DesiredCapabilities getDesiredCapabilities (String environment) {	
 		
 		if (environment.equalsIgnoreCase("FF_LocalHost_W7")){
 			capability = DesiredCapabilities.firefox();
@@ -47,7 +63,6 @@ public class Helper {
 		
 	}
 	
-	
 	public static String getUrlLocalhost(){
 		 String getOwnIp = null;
 		  try{
@@ -58,6 +73,13 @@ public class Helper {
 			  System.out.println("Exception caught ="+e.getMessage());
 			 
 			  }
-		  return getOwnIp + "/joomla";
+		  return "http://" + getOwnIp + "/joomla";
 	}
+
+public static void beforeClass(RemoteWebDriver driver){
+	driver.manage().window().maximize();
+}
+
+	
+
 }

@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -28,6 +27,12 @@ public class LoginPage {
 				30, SECONDS).pollingEvery(2, SECONDS);
 
 		wait.until(ExpectedConditions.titleIs("Login"));
+	}
+	
+	public static void errorMessageOnFailedLogout (String text, WebDriver driver){
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(
+				30, SECONDS).pollingEvery(2, SECONDS);
+		wait.until(ExpectedConditions.textToBePresentInElement(By.xpath(".//div[@class='alert alert-warning']/div/p"), text));
 	}
 
 	//
@@ -57,25 +62,17 @@ public class LoginPage {
 				.submit();
 	}
 	
-	public HomePage loginAs(String username, String password) {
+/*	public UserLoginLandingPage loginAs(String username, String password) {
 
 		executeLogin(username, password);
-		return new HomePage(driver);
+		return new UserLoginLandingPage(driver);
 	}
 
 	public void failLoginAs(String username, String password) {
 		executeLogin(username, password);
 	}
+*/
 
-	private static void executeLogin(String username, String password) {
-
-	/*	driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
-		driver.findElement(By.xpath(".//*[@id='password']")).sendKeys(password);
-		driver.findElement(
-				By.xpath(".//*[@id='content']/div[2]/form/fieldset/div[3]/div/button"))
-				.submit();
-			*/
-	}
 
 	public String getErrorMessage() {
 

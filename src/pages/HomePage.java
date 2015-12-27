@@ -1,7 +1,5 @@
 package pages;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,11 +11,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class HomePage {
 
-	/*
-	 * private final static Logger logger = LoggerFactory
-	 * .getLogger(HomePage.class);
-	 */
-
 	private final WebDriver driver;
 
 	public HomePage(WebDriver driver) {
@@ -27,48 +20,31 @@ public class HomePage {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(
 				30, SECONDS).pollingEvery(2, SECONDS);
 
-		wait.until(ExpectedConditions.titleIs("User Profile"));
+		wait.until(ExpectedConditions.titleIs("Home"));
+		
+	}
 
+
+	public void gotoArticleCategories() {
+
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(30, SECONDS).pollingEvery(2, SECONDS);
+		WebElement moduleCategory = driver.findElement(By.xpath(".//*[@id='AllFrontEndViews']"));
+		wait.until(ExpectedConditions.visibilityOf(moduleCategory));
+		 driver.findElement(By.xpath(".//*[@id='AllFrontEndViews']/*/a[contains(text(),'Article Categories')]")).click();
+			
 	}
 	public static void waitTillLoaded(WebDriver driver){
-		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(
-				30, SECONDS).pollingEvery(2, SECONDS);
-
-		wait.until(ExpectedConditions.titleIs("User Profile"));
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(30, SECONDS).pollingEvery(2, SECONDS);
+		wait.until(ExpectedConditions.titleIs("Home"));
 	}
 
-	public LoginPage executeLogout() {
 
-		executeLogoutViaLink();
-		return new LoginPage(driver);
+
+	public String getErrorMessage() {
+
+		return driver.findElement(By.xpath(".//*[@id='system-message']/div/div/p")).getText();
 	}
 
-	private void executeLogoutViaLink() {
 
-		driver.findElement(By.xpath(".//*[@id='login-form']/div[2]/input[1]"))
-				.submit();
-	}
-
-	public static String getHomePageWelcomeMessage(WebDriver driver) throws Exception {
-
-		return driver.findElement(
-				By.xpath(".//*[@id='users-profile-custom']/legend")).getText();
-
-	}
-
-	public void takeScreenshotOfCheckBox() throws IOException  {
-		// Find the text input element by its name
-		
-		
-		WebElement element = driver.findElement(By
-				.xpath(".//*[@id='login-form']/div[2]/input[1]"));
-
-		// takescreenshot of element
-		helper.Screenshot screenshot = new helper.Screenshot(driver);
-		screenshot.shoot(element, "banner");
-
-		System.out.println("Page title is: " + driver.getTitle());
-		
-	}
 
 }

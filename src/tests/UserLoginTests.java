@@ -13,20 +13,76 @@ import org.openqa.selenium.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver; 
 
-import pages.HomePage;
+import pages.UserLoginLandingPage;
 import pages.LoginPage;
 import pages.Helper;
 
 
 public class UserLoginTests {  
     
- 
+
 	private static RemoteWebDriver driver;
-    private  static String host = "http://" + Helper.getUrlLocalhost() + "/index.php/login";  
+    private  static String host = Helper.getUrlLocalhost() + "/index.php/login";  
+   
     
-	@Parameters({"browser"})
-	@BeforeClass
-	public static void setUpBeforeClass(String browser) throws Exception {
+    //
+    // Setup
+    //
+    
+    @BeforeMethod
+    public void beforeMethod() {  
+         driver.get(host);  
+     }  
+   
+    @AfterClass 
+    public static void afterClass() {  
+         driver.quit();  
+      }  
+   
+    @AfterMethod
+    public void afterMethod() {      
+         driver.manage().deleteAllCookies();  
+    } 
+    
+    
+   // ToDo
+    // parallel testing
+    // datadriven testing (Excel)
+    // email on end
+    
+    
+   // 
+   // Login Tests
+   //
+    
+   @Test  
+   public void testFailedLogin() throws Exception {  
+ 
+       LoginPage.waitTillLoaded(driver);
+       LoginPage.loginAsUserX("admin", "Wrong password", driver);
+       LoginPage.errorMessageOnFailedLogout("Username and password do not match or you do not have an account yet.", driver);         
+   }  
+    
+   @Test  
+   public void testLogin() throws Exception {  
+    	LoginPage.waitTillLoaded(driver);
+        LoginPage.loginAsUserX("admin", "admin", driver);
+        UserLoginLandingPage.waitTillLoaded(driver);
+        AssertJUnit.assertEquals("Basic Settings",UserLoginLandingPage.getHomePageWelcomeMessage(driver));       
+    }  	         
+     
+   @Test
+   public void testLogoutViaLink () throws Exception {
+    	LoginPage.waitTillLoaded(driver);
+        LoginPage.loginAsUserX("admin", "admin", driver);
+    	UserLoginLandingPage.waitTillLoaded(driver);
+    	UserLoginLandingPage.logoutViaButton(driver);
+    	LoginPage.waitTillLoaded(driver);         	
+    }
+  
+   @Parameters({"browser"})
+   @BeforeClass
+   public static void setUpBeforeClass(String browser) throws Exception {
 		if (browser.equalsIgnoreCase("android")){
 			driver = new AndroidDriver();	
 		} else {
@@ -36,52 +92,7 @@ public class UserLoginTests {
 		}					
 	}
 	
-    
-    @BeforeMethod
-	public void before() {  
-        driver.get(host);  
-    }  
-  
-     @AfterClass public static void afterAllIsSaidAndDone() {  
-         driver.quit();  
-     }  
-  
-   @AfterMethod
-	public void after() {      
-        driver.manage().deleteAllCookies();  
-    }  
-  
-
-  
-    @Test  
-    public void testLogin() throws Exception {  
-    	LoginPage.waitTillLoaded(driver);
-        LoginPage.loginAsUserX("admin", "admin", driver);
-        HomePage.waitTillLoaded(driver);
-        AssertJUnit.assertEquals("Basic Settings",HomePage.getHomePageWelcomeMessage(driver));  
-  
-    }  	
-  
-    @Test  
-    public void testFailedLogin() throws Exception {  
-  
-        LoginPage loginPage = new LoginPage(driver);  
-        loginPage.failLoginAs("nobody", "WRONG");  
-        AssertJUnit.assertTrue(loginPage.getErrorMessage().contains("Username and password do not match or you do not have an account yet."));  
-    }  
-    
-    @Test
-    public void testLogoutViaLink () throws Exception {
-    	LoginPage loginPage = new LoginPage(driver);  
-        HomePage homePage = loginPage.loginAs("admin", "admin");  
-        //AssertJUnit.assertEquals("Basic Settings",homePage.getHomePageWelcomeMessage());
-        LoginPage loginPageLoggedOut = homePage.executeLogout();
-        AssertJUnit.assertEquals("User Name *", loginPageLoggedOut.getLoginPageTitle());
-       
-          	
-    }
-
-    
-    
+   
+ 
 
 }  

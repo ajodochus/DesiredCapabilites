@@ -3,7 +3,7 @@
 		<parameter name="browser" value="FF_LocalHost_W7" />
 		<classes>
 			<class name="tests.RegisterUsersFromSQL" />
-			<class name="tests.DeleteAllUsersExceptAdmin" />
+<!-- 			<class name="tests.DeleteAllUsersExceptAdmin" />  -->
 <!-- 			<class name="tests.UserLoginTests"> -->
 <!-- 				<methods> -->
 <!-- 				    <include name="testLogin"  /> -->

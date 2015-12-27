@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 
 import pages.ArticleCategories;
 import pages.Helper;
-import pages.IndexPage;
+import pages.HomePage;
 import pages.ParkSiteList;
 import pages.SingleArticle;
 
@@ -44,7 +44,7 @@ public class VerifyImages {
 	@BeforeMethod
 	public void before() {
 		driver.get(host);
-		IndexPage indexPage = new IndexPage(driver);
+		HomePage indexPage = new HomePage(driver);
 		indexPage.gotoArticleCategories();
 		ArticleCategories articleCategories = new ArticleCategories(driver);
 		articleCategories.gotoParkSite();
